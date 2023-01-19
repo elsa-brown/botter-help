@@ -94,6 +94,7 @@
 	}
 
 	.window {
+		height: 250px;
 		border: solid 1px black;
 		padding: 10px;
 		margin-bottom: 20px;
@@ -109,5 +110,21 @@
 
 	.user {
 		text-align: right;
+	}
+
+	input {
+		height: 4rem;
+		border: none;
+		border-radius: 1rem;
+		padding-left: 1.4rem;
+		box-shadow: inset 0.2rem 0.2rem 0.5rem #cfcfcf, inset -0.2rem -0.2rem 0.5rem #e8e8e8;
+		background: none;
+		color: #4f4f4f;
+		font-size: 16px;
+	}
+
+	input:focus {
+		outline: none;
+		box-shadow: 0.3rem 0.3rem 0.6rem #e8e8e8, -0.2rem -0.2rem 0.5rem #cfcfcf;
 	}
 </style>
