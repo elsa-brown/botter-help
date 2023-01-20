@@ -55,12 +55,14 @@
 </header>
 
 <div class="chat">
-	<div class="window">
-		{#each comments as comment}
-			<article class={comment.author}>
-				<span>{comment.text}</span>
-			</article>
-		{/each}
+	<div class="window-border">
+		<div class="window">
+			{#each comments as comment}
+				<article class={comment.author}>
+					<span>{comment.text}</span>
+				</article>
+			{/each}
+		</div>
 	</div>
 
 	<input on:keydown={handleKeydown} />
@@ -69,13 +71,15 @@
 <style>
 	header {
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		width: 300px;
+		width: 100%;
+		height: 5rem;
 	}
 
 	h1 {
 		color: #4b7b3f;
-		margin: 24px;
+		margin: 0 24px;
 	}
 
 	.leaf {
@@ -90,14 +94,25 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		max-width: 320px;
+		width: calc(100vw - 32px);
+		max-width: 600px;
+		margin-bottom: 16px;
+	}
+
+	.window-border {
+		border-radius: 16px;
+		box-shadow: 0.2rem 0.2rem 0.4rem #919191, -0.1rem -0.1rem 0.3rem #e8e8e8;
+		height: 100%;
+		margin-bottom: 20px;
+		padding: 8px;
 	}
 
 	.window {
-		height: 250px;
-		border: solid 1px black;
-		padding: 10px;
-		margin-bottom: 20px;
+		height: 100%;
+		background: #fcfcfc;
+		border-radius: 10px;
+		padding: 20px;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem #919191, inset -0.1rem -0.1rem 0.3rem #e8e8e8;
 	}
 
 	article {
@@ -115,9 +130,9 @@
 	input {
 		height: 4rem;
 		border: none;
-		border-radius: 1rem;
+		border-radius: 16px;
 		padding-left: 1.4rem;
-		box-shadow: inset 0.2rem 0.2rem 0.5rem #cfcfcf, inset -0.2rem -0.2rem 0.5rem #e8e8e8;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem #919191, inset -0.1rem -0.1rem 0.3rem #e8e8e8;
 		background: none;
 		color: #4f4f4f;
 		font-size: 16px;
@@ -125,6 +140,7 @@
 
 	input:focus {
 		outline: none;
-		box-shadow: 0.3rem 0.3rem 0.6rem #e8e8e8, -0.2rem -0.2rem 0.5rem #cfcfcf;
+		box-shadow: 0.2rem 0.2rem 0.4rem #919191, -0.1rem -0.1rem 0.3rem #e8e8e8;
+		/* background: #fcfcfc; */
 	}
 </style>
