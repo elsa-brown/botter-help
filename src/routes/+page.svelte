@@ -62,11 +62,13 @@
 		</div>
 	</div>
 
-	<input placeholder="Type here..." on:keydown={handleKeydown} />
-	<span class="material-icons">send</span>
+	<div>
+		<input placeholder="Type here..." on:keydown={handleKeydown} />
+		<span class="material-icons">send</span>
+	</div>
 </div>
 
-<style>
+<style lang="scss">
 	header {
 		display: flex;
 		align-items: center;
@@ -77,8 +79,8 @@
 
 	h1 {
 		margin: 0 24px;
-		color: #4b7b3f;
-		text-shadow: 2px 2px 3px #e8e8e8;
+		color: $green-300;
+		text-shadow: 2px 2px 3px $gray-100;
 	}
 
 	.leaf {
@@ -100,7 +102,7 @@
 
 	.window-border {
 		border-radius: 16px;
-		box-shadow: 0.2rem 0.2rem 0.4rem #919191, -0.1rem -0.1rem 0.3rem #e8e8e8;
+		box-shadow: 0.2rem 0.2rem 0.4rem $gray-200, -0.1rem -0.1rem 0.3rem $gray-100;
 		height: 100%;
 		margin-bottom: 20px;
 		padding: 8px;
@@ -110,14 +112,14 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		background: #fcfcfc;
+		background: $white;
 		border-radius: 10px;
 		padding: 16px;
-		box-shadow: inset 0.1rem 0.1rem 0.3rem #919191, inset -0.1rem -0.1rem 0.3rem #e8e8e8;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
 	}
 
 	article {
-		color: #0d0d0d;
+		color: $black;
 		margin-bottom: 16px;
 		padding: 16px;
 		width: 94%;
@@ -125,15 +127,15 @@
 
 	.therapist {
 		text-align: left;
-		background: #e8e8e8;
-		background-image: linear-gradient(to bottom right, #fcfcfc, #e8e8e8);
+		background: $gray-100;
+		background-image: linear-gradient(to bottom right, $white, $gray-100);
 		border-radius: 8px 8px 8px 0;
 	}
 
 	.user {
 		text-align: right;
 		align-self: flex-end;
-		background-image: linear-gradient(to bottom left, #fffcf6, #f7f0e6);
+		background-image: linear-gradient(to bottom left, $neutral-100, $neutral-200);
 		border-radius: 8px 8px 0 8px;
 	}
 
@@ -142,15 +144,15 @@
 		border: none;
 		border-radius: 16px;
 		padding-left: 1.4rem;
-		box-shadow: inset 0.1rem 0.1rem 0.3rem #919191, inset -0.1rem -0.1rem 0.3rem #e8e8e8;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
 		background: none;
-		color: #4f4f4f;
+		color: $gray-300;
 		font-size: 16px;
 	}
 
 	input:focus {
 		outline: none;
-		box-shadow: 0.2rem 0.2rem 0.4rem #919191, -0.1rem -0.1rem 0.3rem #e8e8e8;
-		/* background: #fcfcfc; */
+		box-shadow: 0.2rem 0.2rem 0.4rem $gray-200, -0.1rem -0.1rem 0.3rem $gray-100;
+		/* background: $white; */
 	}
 </style>

@@ -1,6 +1,6 @@
 <script>
+	import '../style/base.scss';
 	import '@fontsource/inter';
-	import '../styles.css';
 </script>
 
 <svelte:head>
@@ -12,7 +12,7 @@
 	<slot />
 </div>
 
-<style lang="sass">
+<style lang="scss">
 	.app {
 		font-family: 'Inter', sans-serif;
 		display: flex;
