@@ -1,13 +1,15 @@
 <script>
+	import '@fontsource/material-icons';
 	import Therapist from 'elizabot';
 	import { beforeUpdate, afterUpdate } from 'svelte';
+	import { getRandomMs } from '../utils';
 	import leaf from '$lib/leaf.svg';
 
 	const therapist = new Therapist();
 
 	let comments = [
 		{
-			author: 'eliza',
+			author: 'therapist',
 			text: therapist.getInitial()
 		}
 	];
@@ -37,16 +39,11 @@
 							author: 'therapist',
 							text: reply
 						});
-				}, 500 + Math.random() * 500);
-			}, 200 * Math.random()) * 200;
+				}, getRandomMs());
+			}, getRandomMs());
 		}
 	}
 </script>
-
-<svelte:head>
-	<title>botter help</title>
-	<meta name="description" content="free therapy for everyone" />
-</svelte:head>
 
 <header>
 	<img class="leaf leaf-flip" src={leaf} alt="" />
@@ -55,27 +52,35 @@
 </header>
 
 <div class="chat">
-	<div class="window">
-		{#each comments as comment}
-			<article class={comment.author}>
-				<span>{comment.text}</span>
-			</article>
-		{/each}
+	<div class="window-border">
+		<div class="window">
+			{#each comments as comment}
+				<article class={comment.author}>
+					<span>{comment.text}</span>
+				</article>
+			{/each}
+		</div>
 	</div>
 
-	<input on:keydown={handleKeydown} />
+	<div>
+		<input placeholder="Type here..." on:keydown={handleKeydown} />
+		<span class="material-icons">send</span>
+	</div>
 </div>
 
-<style>
+<style lang="scss">
 	header {
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		width: 300px;
+		width: 100%;
+		margin: 16px 0 24px;
 	}
 
 	h1 {
-		color: #4b7b3f;
-		margin: 24px;
+		margin: 0 24px;
+		color: $green-300;
+		text-shadow: 2px 2px 3px $gray-100;
 	}
 
 	.leaf {
@@ -90,24 +95,64 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		max-width: 320px;
+		width: calc(100vw - 32px);
+		max-width: 400px;
+		margin-bottom: 16px;
+	}
+
+	.window-border {
+		border-radius: 16px;
+		box-shadow: 0.2rem 0.2rem 0.4rem $gray-200, -0.1rem -0.1rem 0.3rem $gray-100;
+		height: 100%;
+		margin-bottom: 20px;
+		padding: 8px;
 	}
 
 	.window {
-		border: solid 1px black;
-		padding: 10px;
-		margin-bottom: 20px;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		background: $white;
+		border-radius: 10px;
+		padding: 16px;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
 	}
 
 	article {
-		margin-bottom: 10px;
+		color: $black;
+		margin-bottom: 16px;
+		padding: 16px;
+		width: 94%;
 	}
 
 	.therapist {
 		text-align: left;
+		background: $gray-100;
+		background-image: linear-gradient(to bottom right, $white, $gray-100);
+		border-radius: 8px 8px 8px 0;
 	}
 
 	.user {
 		text-align: right;
+		align-self: flex-end;
+		background-image: linear-gradient(to bottom left, $neutral-100, $neutral-200);
+		border-radius: 8px 8px 0 8px;
+	}
+
+	input {
+		height: 4rem;
+		border: none;
+		border-radius: 16px;
+		padding-left: 1.4rem;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
+		background: none;
+		color: $gray-300;
+		font-size: 16px;
+	}
+
+	input:focus {
+		outline: none;
+		box-shadow: 0.2rem 0.2rem 0.4rem $gray-200, -0.1rem -0.1rem 0.3rem $gray-100;
+		/* background: $white; */
 	}
 </style>
