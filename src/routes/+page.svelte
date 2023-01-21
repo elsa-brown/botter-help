@@ -1,9 +1,8 @@
 <script>
-	import '@fontsource/material-icons';
 	import Therapist from 'elizabot';
 	import { beforeUpdate, afterUpdate } from 'svelte';
 	import { getRandomMs } from '../utils';
-	import leaf from '$lib/leaf.svg';
+	import Header from '../Header.svelte';
 
 	const therapist = new Therapist();
 
@@ -14,83 +13,79 @@
 		}
 	];
 
-	function handleKeydown(e) {
-		if (e.key === 'Enter') {
-			const text = e.target.value;
-			if (!text) return;
+	let text = '';
+	let showSubmit = false;
+	let input;
 
-			comments = comments.concat({ author: 'user', text });
+	function handleKeydown() {
+		if (!showSubmit) {
+			showSubmit = true;
+		}
+	}
 
-			e.target.value = '';
+	function handleSubmit() {
+		if (!text?.length) return;
+		comments = comments.concat({ author: 'user', text });
 
-			const reply = therapist.transform(text);
+		const reply = therapist.transform(text);
+		text = '';
+		showSubmit = false;
+		input.focus();
+
+		setTimeout(() => {
+			comments = comments.concat({
+				author: 'therapist',
+				text: '...',
+				placeholder: true
+			});
 
 			setTimeout(() => {
-				comments = comments.concat({
-					author: 'therapist',
-					text: '...',
-					placeholder: true
-				});
-
-				setTimeout(() => {
-					comments = comments
-						.filter((comment) => !comment.placeholder)
-						.concat({
-							author: 'therapist',
-							text: reply
-						});
-				}, getRandomMs());
+				comments = comments
+					.filter((comment) => !comment.placeholder)
+					.concat({
+						author: 'therapist',
+						text: reply
+					});
 			}, getRandomMs());
-		}
+		}, getRandomMs());
 	}
 </script>
 
-<header>
-	<img class="leaf leaf-flip" src={leaf} alt="" />
-	<h1>botter help</h1>
-	<img class="leaf" src={leaf} alt="" />
-</header>
+<Header />
 
 <div class="chat">
 	<div class="window-border">
-		<div class="window">
+		<div class="window" aria-label="chat-window">
 			{#each comments as comment}
 				<article class={comment.author}>
-					<span>{comment.text}</span>
+					<span aria-live={comment.author === 'therapist' ? 'polite' : ''}>
+						{comment.text}
+					</span>
 				</article>
 			{/each}
 		</div>
 	</div>
 
-	<div>
-		<input placeholder="Type here..." on:keydown={handleKeydown} />
-		<span class="material-icons">send</span>
-	</div>
+	<form autocomplete="off" on:submit|preventDefault={handleSubmit}>
+		<label for="message" class="visuallyhidden">Type here</label>
+		<input
+			title="message"
+			type="text"
+			id="message"
+			placeholder="Type here..."
+			bind:this={input}
+			bind:value={text}
+			on:keydown={handleKeydown}
+		/>
+		{#if showSubmit}
+			<button type="submit" class="send">
+				<span class="material-icons">send</span>
+			</button>
+		{/if}
+	</form>
 </div>
 
 <style lang="scss">
-	header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		margin: 16px 0 24px;
-	}
-
-	h1 {
-		margin: 0 24px;
-		color: $green-300;
-		text-shadow: 2px 2px 3px $gray-100;
-	}
-
-	.leaf {
-		width: 30px;
-	}
-
-	.leaf-flip {
-		transform: scaleX(-1);
-	}
-
 	.chat {
 		display: flex;
 		flex-direction: column;
@@ -123,36 +118,47 @@
 		margin-bottom: 16px;
 		padding: 16px;
 		width: 94%;
-	}
 
-	.therapist {
-		text-align: left;
-		background: $gray-100;
-		background-image: linear-gradient(to bottom right, $white, $gray-100);
-		border-radius: 8px 8px 8px 0;
-	}
+		&.therapist {
+			text-align: left;
+			background: $gray-100;
+			background-image: linear-gradient(to bottom right, $white, $gray-100);
+			border-radius: 8px 8px 8px 0;
+		}
 
-	.user {
-		text-align: right;
-		align-self: flex-end;
-		background-image: linear-gradient(to bottom left, $neutral-100, $neutral-200);
-		border-radius: 8px 8px 0 8px;
+		&.user {
+			text-align: right;
+			align-self: flex-end;
+			background-image: linear-gradient(to bottom left, $neutral-100, $neutral-200);
+			border-radius: 8px 8px 0 8px;
+		}
 	}
 
 	input {
-		height: 4rem;
+		background-color: transparent;
 		border: none;
-		border-radius: 16px;
-		padding-left: 1.4rem;
-		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
-		background: none;
 		color: $gray-300;
-		font-size: 16px;
+		height: 64px;
+		width: 100%;
+		border-radius: 16px;
+		padding-left: 20px;
+		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
 	}
 
 	input:focus {
 		outline: none;
 		box-shadow: 0.2rem 0.2rem 0.4rem $gray-200, -0.1rem -0.1rem 0.3rem $gray-100;
-		/* background: $white; */
+	}
+
+	.send {
+		color: $neutral-300;
+		padding: 4px 4px 1px 4px;
+		position: absolute;
+		transform: translate(-42px, 16px);
+		font-family: sans-serif;
+
+		&.hide {
+			display: none;
+		}
 	}
 </style>

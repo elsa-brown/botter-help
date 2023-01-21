@@ -1,6 +1,7 @@
 <script>
 	import '../style/base.scss';
 	import '@fontsource/inter';
+	import '@fontsource/material-icons';
 </script>
 
 <svelte:head>
@@ -8,12 +9,12 @@
 	<meta name="description" content="free therapy for everyone" />
 </svelte:head>
 
-<div class="app">
+<main>
 	<slot />
-</div>
+</main>
 
 <style lang="scss">
-	.app {
+	main {
 		font-family: 'Inter', sans-serif;
 		display: flex;
 		flex-direction: column;
