@@ -1,13 +1,15 @@
 <script>
+	import '@fontsource/material-icons';
 	import Therapist from 'elizabot';
 	import { beforeUpdate, afterUpdate } from 'svelte';
+	import { getRandomMs } from '../utils';
 	import leaf from '$lib/leaf.svg';
 
 	const therapist = new Therapist();
 
 	let comments = [
 		{
-			author: 'eliza',
+			author: 'therapist',
 			text: therapist.getInitial()
 		}
 	];
@@ -37,16 +39,11 @@
 							author: 'therapist',
 							text: reply
 						});
-				}, 500 + Math.random() * 500);
-			}, 200 * Math.random()) * 200;
+				}, getRandomMs());
+			}, getRandomMs());
 		}
 	}
 </script>
-
-<svelte:head>
-	<title>botter help</title>
-	<meta name="description" content="free therapy for everyone" />
-</svelte:head>
 
 <header>
 	<img class="leaf leaf-flip" src={leaf} alt="" />
@@ -65,7 +62,8 @@
 		</div>
 	</div>
 
-	<input on:keydown={handleKeydown} />
+	<input placeholder="Type here..." on:keydown={handleKeydown} />
+	<span class="material-icons">send</span>
 </div>
 
 <style>
@@ -74,12 +72,13 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 5rem;
+		margin: 16px 0 24px;
 	}
 
 	h1 {
-		color: #4b7b3f;
 		margin: 0 24px;
+		color: #4b7b3f;
+		text-shadow: 2px 2px 3px #e8e8e8;
 	}
 
 	.leaf {
@@ -95,7 +94,7 @@
 		flex-direction: column;
 		height: 100%;
 		width: calc(100vw - 32px);
-		max-width: 600px;
+		max-width: 400px;
 		margin-bottom: 16px;
 	}
 
@@ -108,23 +107,34 @@
 	}
 
 	.window {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 		background: #fcfcfc;
 		border-radius: 10px;
-		padding: 20px;
+		padding: 16px;
 		box-shadow: inset 0.1rem 0.1rem 0.3rem #919191, inset -0.1rem -0.1rem 0.3rem #e8e8e8;
 	}
 
 	article {
-		margin-bottom: 10px;
+		color: #0d0d0d;
+		margin-bottom: 16px;
+		padding: 16px;
+		width: 94%;
 	}
 
 	.therapist {
 		text-align: left;
+		background: #e8e8e8;
+		background-image: linear-gradient(to bottom right, #fcfcfc, #e8e8e8);
+		border-radius: 8px 8px 8px 0;
 	}
 
 	.user {
 		text-align: right;
+		align-self: flex-end;
+		background-image: linear-gradient(to bottom left, #fffcf6, #f7f0e6);
+		border-radius: 8px 8px 0 8px;
 	}
 
 	input {

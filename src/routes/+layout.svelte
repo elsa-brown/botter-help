@@ -3,13 +3,18 @@
 	import '../styles.css';
 </script>
 
+<svelte:head>
+	<title>botter help</title>
+	<meta name="description" content="free therapy for everyone" />
+</svelte:head>
+
 <div class="app">
 	<slot />
 </div>
 
-<style>
+<style lang="sass">
 	.app {
-		font-family: 'Inter';
+		font-family: 'Inter', sans-serif;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
