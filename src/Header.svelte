@@ -14,7 +14,7 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		margin: 16px 0 24px;
+		margin: 16px 0 8px;
 	}
 
 	h1 {
