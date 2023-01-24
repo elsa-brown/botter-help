@@ -149,6 +149,10 @@
 		padding: 16px;
 		width: 94%;
 
+		span {
+			overflow-wrap: break-word;
+		}
+
 		&.therapist {
 			text-align: left;
 			background: $gray-100;
@@ -176,6 +180,7 @@
 		width: 100%;
 		border-radius: 16px;
 		padding-left: 20px;
+		padding-right: 54px;
 		box-shadow: inset 0.1rem 0.1rem 0.3rem $gray-200, inset -0.1rem -0.1rem 0.3rem $gray-100;
 	}
 
