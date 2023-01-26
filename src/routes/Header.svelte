@@ -1,10 +1,12 @@
 <script>
 	import leaf from '$lib/leaf.svg';
+
+	export let linkPath;
 </script>
 
 <header>
 	<img class="leaf leaf-flip" src={leaf} alt="" />
-	<h1>botter help</h1>
+	<h1><a href="/{linkPath}">{linkPath ? 'botter help' : 'about'}</a></h1>
 	<img class="leaf" src={leaf} alt="" />
 </header>
 
@@ -19,8 +21,9 @@
 
 	h1 {
 		margin: 0 24px;
-		color: $green-300;
 		text-shadow: 2px 2px 3px $gray-100;
+		text-align: center;
+		width: 168px;
 	}
 
 	.leaf {

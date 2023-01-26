@@ -1,5 +1,5 @@
 <script>
-	import '../style/base.scss';
+	import '../styles/base.scss';
 	import '@fontsource/inter';
 	import '@fontsource/material-icons';
 </script>
@@ -19,7 +19,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 100vw;
 		height: 100vh;
+		width: 100vw;
+		max-width: 414px;
+		margin: 0 auto;
+		padding: 0 4px;
 	}
 </style>
