@@ -92,6 +92,6 @@ input:focus {
 	font-family: sans-serif;
 
 	&.hide {
-		display: none;
+		opacity: 0;
 	}
 }

@@ -1,6 +1,7 @@
 <script>
 	import Therapist from 'elizabot';
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { isMacSafari } from 'svelte-browser';
 	import { getRandomMs } from '../utils';
 	import Header from './Header.svelte';
 	import './+page.scss';
@@ -87,17 +88,19 @@
 
 	<form autocomplete="off" on:submit|preventDefault={handleSubmit}>
 		<label for="message" class="visuallyhidden">Type here</label>
-		<input
-			title="message"
-			type="text"
-			id="message"
-			placeholder="Type here..."
-			bind:this={input}
-			bind:value={text}
-			on:keydown={handleKeydown}
-		/>
-		{#if showSubmit}
-			<button type="submit" class="send">
+		{#if isMacSafari}
+			<div>Safari</div>
+		{:else}
+			<input
+				title="message"
+				type="text"
+				id="message"
+				placeholder="Type here..."
+				bind:this={input}
+				bind:value={text}
+				on:keydown={handleKeydown}
+			/>
+			<button type="submit" class="send {showSubmit ? '' : 'hide'}">
 				<span class="material-icons" alt="send">send</span>
 			</button>
 		{/if}
