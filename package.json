@@ -29,6 +29,7 @@
 		"@fontsource/inter": "^4.5.15",
 		"@fontsource/material-icons": "^4.5.4",
 		"elizabot": "^0.0.3",
-		"react-div-100vh": "^0.7.0"
+		"react-div-100vh": "^0.7.0",
+		"svelte-browser": "^0.4.6"
 	}
 }

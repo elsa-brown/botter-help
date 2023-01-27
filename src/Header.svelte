@@ -1,10 +1,11 @@
 <script>
+	import { isMobile } from 'svelte-browser';
 	import leaf from '$lib/leaf.svg';
 
 	export let linkPath;
 </script>
 
-<header>
+<header class={isMobile ? 'mobile' : ''}>
 	<img class="leaf leaf-flip" src={leaf} alt="" />
 	<h1><a href="/{linkPath}">{linkPath ? 'botter help' : 'about'}</a></h1>
 	<img class="leaf" src={leaf} alt="" />
@@ -33,5 +34,18 @@
 
 	.leaf-flip {
 		transform: scaleX(-1);
+	}
+
+	.mobile {
+		margin: 4px 0 0;
+
+		h1 {
+			font-size: 24px;
+		}
+
+		.leaf {
+			height: 24px;
+			width: 24px;
+		}
 	}
 </style>

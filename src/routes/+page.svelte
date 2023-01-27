@@ -1,6 +1,7 @@
 <script>
 	import Therapist from 'elizabot';
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { isMobile } from 'svelte-browser';
 	import { getRandomMs } from '../utils';
 	import Header from '../Header.svelte';
 	import './+page.scss';
@@ -67,7 +68,7 @@
 
 <Header linkPath={'about'} />
 
-<div class="chat-container">
+<div class="chat-container {isMobile ? 'mobile' : ''}">
 	<div class="chat-border">
 		<div class="chat-shadow">
 			<div class="chat" aria-label="chat" bind:this={chat}>

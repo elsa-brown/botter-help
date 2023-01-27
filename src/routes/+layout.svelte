@@ -2,7 +2,11 @@
 	import '../styles/base.scss';
 	import '@fontsource/inter';
 	import '@fontsource/material-icons';
+	import { isMobile } from 'svelte-browser';
 	import { isSafari, viewHeight } from '../store.js';
+
+	console.log('isSafari: ', $isSafari);
+	console.log('isMobile: ', isMobile);
 </script>
 
 <svelte:head>
@@ -10,7 +14,7 @@
 	<meta name="description" content="free therapy for everyone" />
 </svelte:head>
 
-<main style={$isSafari ? `height: ${$viewHeight}px` : ''}>
+<main style={isMobile || $isSafari ? `height: ${$viewHeight}px` : ''}>
 	<slot />
 </main>
 

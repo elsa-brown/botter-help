@@ -102,3 +102,28 @@ input {
 		opacity: 0;
 	}
 }
+
+.mobile {
+	padding: 4px;
+
+	.chat-border {
+		margin-bottom: 8px;
+		padding: 4px;
+	}
+
+	.chat {
+		padding-bottom: 0;
+	}
+
+	article {
+		padding: 12px;
+	}
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.input-wrapper {
+		height: 48px;
+	}
+}
