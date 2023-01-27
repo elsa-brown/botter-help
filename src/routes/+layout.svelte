@@ -2,6 +2,7 @@
 	import '../styles/base.scss';
 	import '@fontsource/inter';
 	import '@fontsource/material-icons';
+	import { isSafari, viewHeight } from '../store.js';
 </script>
 
 <svelte:head>
@@ -9,7 +10,7 @@
 	<meta name="description" content="free therapy for everyone" />
 </svelte:head>
 
-<main>
+<main style={$isSafari ? `height: ${$viewHeight}px` : ''}>
 	<slot />
 </main>
 
