@@ -1,7 +1,6 @@
 <script>
 	import Therapist from 'elizabot';
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
-	import { isMacSafari } from 'svelte-browser';
 	import { getRandomMs } from '../utils';
 	import Header from './Header.svelte';
 	import './+page.scss';
@@ -35,11 +34,9 @@
 		if (chatAutoscroll) {
 			chat.scrollTo(0, chatHeight);
 		}
-	});
 
-	function handleKeydown() {
-		showSubmit = true;
-	}
+		showSubmit = text.length;
+	});
 
 	function handleSubmit() {
 		if (!text?.length) return;
@@ -47,7 +44,6 @@
 		const reply = therapist.transform(text);
 		comments = comments.concat({ author: 'user', text });
 		text = '';
-		showSubmit = false;
 		input.focus();
 
 		setTimeout(() => {
@@ -88,9 +84,7 @@
 
 	<form autocomplete="off" on:submit|preventDefault={handleSubmit}>
 		<label for="message" class="visuallyhidden">Type here</label>
-		{#if isMacSafari}
-			<div>Safari</div>
-		{:else}
+		<div class="input-wrapper">
 			<input
 				title="message"
 				type="text"
@@ -98,11 +92,10 @@
 				placeholder="Type here..."
 				bind:this={input}
 				bind:value={text}
-				on:keydown={handleKeydown}
 			/>
 			<button type="submit" class="send {showSubmit ? '' : 'hide'}">
 				<span class="material-icons" alt="send">send</span>
 			</button>
-		{/if}
+		</div>
 	</form>
 </div>
