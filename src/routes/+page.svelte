@@ -2,7 +2,7 @@
 	import Therapist from 'elizabot';
 	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
 	import { getRandomMs } from '../utils';
-	import Header from './Header.svelte';
+	import Header from '../Header.svelte';
 	import './+page.scss';
 
 	const therapist = new Therapist();
