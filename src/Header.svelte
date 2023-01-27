@@ -37,7 +37,7 @@
 	}
 
 	.mobile {
-		margin: 4px 0 0;
+		margin: 4px 0;
 
 		h1 {
 			font-size: 24px;
