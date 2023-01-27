@@ -2,11 +2,33 @@
 	import '../styles/base.scss';
 	import '@fontsource/inter';
 	import '@fontsource/material-icons';
+	import { onMount } from 'svelte';
 	import { isMobile } from 'svelte-browser';
-	import { isSafari, viewHeight } from '../store.js';
+	import { isSafari } from '../store.js';
+	import { browser } from '$app/environment';
 
-	console.log('isSafari: ', $isSafari);
-	console.log('isMobile: ', isMobile);
+	let viewHeight = 0;
+
+	const handleKeyboardView = () => {
+		if (browser) {
+			viewHeight = window.visualViewport.height;
+
+			window.visualViewport.onresize = () => {
+				viewHeight = window.visualViewport.height;
+
+				/* Handles mysterious scroll after resize */
+				window.visualViewport.onscroll = () => {
+					window.scroll(0, 0);
+				};
+			};
+		}
+	};
+
+	onMount(async () => {
+		if (isMobile || $isSafari) {
+			handleKeyboardView();
+		}
+	});
 </script>
 
 <svelte:head>
@@ -14,7 +36,7 @@
 	<meta name="description" content="free therapy for everyone" />
 </svelte:head>
 
-<main style={isMobile || $isSafari ? `height: ${$viewHeight}px` : ''}>
+<main style={isMobile || $isSafari ? `height: ${viewHeight}px` : ''}>
 	<slot />
 </main>
 

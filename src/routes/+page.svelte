@@ -74,9 +74,9 @@
 			<div class="chat" aria-label="chat" bind:this={chat}>
 				{#each comments as comment}
 					<article class={comment.author}>
-						<span aria-live={comment.author === 'therapist' ? 'polite' : ''}>
+						<div aria-live={comment.author === 'therapist' ? 'polite' : ''}>
 							{comment.text}
-						</span>
+						</div>
 					</article>
 				{/each}
 			</div>
