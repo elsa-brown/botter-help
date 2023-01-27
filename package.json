@@ -19,12 +19,16 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
+		"sass": "^1.57.1",
 		"svelte": "^3.54.0",
+		"svelte-preprocess": "^5.0.1",
 		"vite": "^4.0.0"
 	},
 	"type": "module",
 	"dependencies": {
 		"@fontsource/inter": "^4.5.15",
-		"elizabot": "^0.0.3"
+		"@fontsource/material-icons": "^4.5.4",
+		"elizabot": "^0.0.3",
+		"svelte-browser": "^0.4.6"
 	}
 }

@@ -1,113 +1,102 @@
 <script>
 	import Therapist from 'elizabot';
-	import { beforeUpdate, afterUpdate } from 'svelte';
-	import leaf from '$lib/leaf.svg';
+	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { isMobile } from 'svelte-browser';
+	import { getRandomMs } from '../utils';
+	import Header from '../Header.svelte';
+	import './+page.scss';
 
 	const therapist = new Therapist();
 
 	let comments = [
 		{
-			author: 'eliza',
+			author: 'therapist',
 			text: therapist.getInitial()
 		}
 	];
 
-	function handleKeydown(e) {
-		if (e.key === 'Enter') {
-			const text = e.target.value;
-			if (!text) return;
+	let input;
+	let chat;
+	let chatHeight;
+	let chatAutoscroll = false;
+	let showSubmit = false;
+	let text = '';
 
-			comments = comments.concat({ author: 'user', text });
+	onMount(() => (chatHeight = chat.scrollHeight));
 
-			e.target.value = '';
+	beforeUpdate(() => {
+		if (chat?.scrollHeight > chatHeight) {
+			chatAutoscroll = true;
+			chatHeight = chat.scrollHeight;
+		}
+	});
 
-			const reply = therapist.transform(text);
+	afterUpdate(() => {
+		if (chatAutoscroll) {
+			chat.scrollTo(0, chatHeight);
+		}
+
+		showSubmit = text.length;
+	});
+
+	function handleSubmit() {
+		if (!text?.length) return;
+
+		const reply = therapist.transform(text);
+		comments = comments.concat({ author: 'user', text });
+		text = '';
+		input.focus();
+
+		setTimeout(() => {
+			comments = comments.concat({
+				author: 'therapist',
+				text: '...',
+				placeholder: true
+			});
 
 			setTimeout(() => {
-				comments = comments.concat({
-					author: 'therapist',
-					text: '...',
-					placeholder: true
-				});
-
-				setTimeout(() => {
-					comments = comments
-						.filter((comment) => !comment.placeholder)
-						.concat({
-							author: 'therapist',
-							text: reply
-						});
-				}, 500 + Math.random() * 500);
-			}, 200 * Math.random()) * 200;
-		}
+				comments = comments
+					.filter((comment) => !comment.placeholder)
+					.concat({
+						author: 'therapist',
+						text: reply
+					});
+			}, getRandomMs());
+		}, getRandomMs());
 	}
 </script>
 
-<svelte:head>
-	<title>botter help</title>
-	<meta name="description" content="free therapy for everyone" />
-</svelte:head>
+<Header linkPath={'about'} />
 
-<header>
-	<img class="leaf leaf-flip" src={leaf} alt="" />
-	<h1>botter help</h1>
-	<img class="leaf" src={leaf} alt="" />
-</header>
-
-<div class="chat">
-	<div class="window">
-		{#each comments as comment}
-			<article class={comment.author}>
-				<span>{comment.text}</span>
-			</article>
-		{/each}
+<div class="chat-container {isMobile ? 'mobile' : ''}">
+	<div class="chat-border">
+		<div class="chat-shadow">
+			<div class="chat" aria-label="chat" bind:this={chat}>
+				{#each comments as comment}
+					<article class={comment.author}>
+						<div aria-live={comment.author === 'therapist' ? 'polite' : ''}>
+							{comment.text}
+						</div>
+					</article>
+				{/each}
+			</div>
+		</div>
 	</div>
 
-	<input on:keydown={handleKeydown} />
+	<form autocomplete="off" on:submit|preventDefault={handleSubmit}>
+		<label for="message" class="visuallyhidden">Type here</label>
+		<div class="input-wrapper">
+			<input
+				title="message"
+				type="text"
+				id="message"
+				placeholder="Type here..."
+				bind:this={input}
+				bind:value={text}
+			/>
+			<button type="submit" class="send {showSubmit ? '' : 'hide'}">
+				<span class="material-icons" alt="send">send</span>
+			</button>
+		</div>
+	</form>
 </div>
-
-<style>
-	header {
-		display: flex;
-		justify-content: center;
-		width: 300px;
-	}
-
-	h1 {
-		color: #4b7b3f;
-		margin: 24px;
-	}
-
-	.leaf {
-		width: 30px;
-	}
-
-	.leaf-flip {
-		transform: scaleX(-1);
-	}
-
-	.chat {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		max-width: 320px;
-	}
-
-	.window {
-		border: solid 1px black;
-		padding: 10px;
-		margin-bottom: 20px;
-	}
-
-	article {
-		margin-bottom: 10px;
-	}
-
-	.therapist {
-		text-align: left;
-	}
-
-	.user {
-		text-align: right;
-	}
-</style>
