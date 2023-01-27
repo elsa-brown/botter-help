@@ -23,10 +23,11 @@
 		margin: 0 24px;
 		text-shadow: 2px 2px 3px $gray-100;
 		text-align: center;
-		width: 168px;
+		min-width: 168px;
 	}
 
 	.leaf {
+		height: 30px;
 		width: 30px;
 	}
 

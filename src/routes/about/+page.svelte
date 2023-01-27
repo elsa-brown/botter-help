@@ -12,7 +12,7 @@
 <Header linkPath={''} />
 
 <section>
-	<h3><span class="fancy">botter help</span> is...</h3>
+	<h2><span class="fancy">botter help</span> is...</h2>
 	<ul>
 		<li>free therapy for all.</li>
 		<li>
@@ -35,7 +35,7 @@
 		padding: 0 36px;
 	}
 
-	h3 {
+	h2 {
 		font-size: 24px;
 		margin: 0 0 24px;
 	}
